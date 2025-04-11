@@ -2,9 +2,12 @@ from app.models import Country, User, UserImage
 from sqlalchemy.orm import Session
 from app.controllers.lib import get_password_hash, verify_password, create_access_token, get_user_images_data, get_image_file, get_profile_image_file
 from app.schemas.user import UserCreate, UserSchema, UserLogin, UserImageSchema
-from fastapi import HTTPException
+from fastapi import HTTPException, File, UploadFile, Depends
+import shutil
 from typing import List
 from fastapi.responses import FileResponse
+from pathlib import Path
+import os
 
 def login_user(db: Session, user_data: UserSchema):
     try:
@@ -14,9 +17,15 @@ def login_user(db: Session, user_data: UserSchema):
         elif not verify_password(user_data.password, user.password):
             raise HTTPException(status_code=401, detail="Invalid password")
         user.password = None  # Non restituire la password
-        user.token = create_access_token(data={"sub": user.email})
+        token = create_access_token(
+            data={
+                "sub": user.email,
+                "id": user.id,
+                "name": user.name
+            })
         user.country = user.country
-        return UserSchema.model_validate(user)
+        return {"access_token": token,"token_type": "bearer"}
+    
     except Exception as e:
         raise Exception(f"Error fetching users: {str(e)}")
 
@@ -59,5 +68,29 @@ def get_images_user_file(db: Session, id: int) -> FileResponse:
 
 def get_profile_image(db: Session, id: int) -> FileResponse:
     return get_profile_image_file(id)
+
+def put_profile_image(db: Session, file: UploadFile = File(...), token: str = None, id: int = 0):
+    try:
+        save_dir = Path("app/static/images/profile")
+        save_dir.mkdir(parents=True, exist_ok=True)
+
+        original_extension = os.path.splitext(file.filename)[1]
+        if original_extension.lower() not in [".jpg", ".jpeg", ".png", ".gif"]:
+            raise HTTPException(status_code=400, detail="Formato file non supportato")
+
+        file_path = save_dir / f"{id}{original_extension.lower()}"
+
+        for ext in [".jpg", ".jpeg", ".png", ".gif"]:
+            old_file = save_dir / f"{id}{ext}"
+            if old_file.exists():
+                old_file.unlink()
+
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+
+        return {"filename": file_path.name}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
 
 

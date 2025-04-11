@@ -5,11 +5,15 @@ from app.models import User
 from pathlib import Path
 import shutil
 from passlib.context import CryptContext
-from app.controllers.auth import login_user, register_user, get_users, get_images_user, get_images_user_file, get_profile_image
+from app.controllers.auth import login_user, register_user, get_users, get_images_user, get_images_user_file, get_profile_image, put_profile_image
+import app.controllers.lib as lib
 from app.schemas.user import UserCreate, UserSchema, UserLogin, UserImageSchema  # Import userCreate schema
 from fastapi.responses import FileResponse
 import os
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/user/login")
 router = APIRouter()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -17,41 +21,38 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 async def get_users_endpoint(db: Session = Depends(get_db)):
     return get_users(db)
 
+@router.post("/login", summary="Login user")
+async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    user_login = UserLogin(email=form_data.username, password=form_data.password)
+    return login_user(db, user_data=user_login)
 
-@router.post("/login", response_model=UserSchema, summary="Login user")
+"""@router.post("/login", response_model=UserSchema, summary="Login user")
 async def login(user: UserLogin, db: Session = Depends(get_db)):
-    return login_user(db, user_data=user)
+    return login_user(db, user_data=user)"""
 
 
 @router.post("/register", response_model=UserSchema, summary="Register user")
 async def register(user: UserCreate, db: Session = Depends(get_db)):
     return register_user(user, db=db)
 
+@router.get("/token", summary="Get token user")
+async def get_token_user(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    if not token:
+        raise HTTPException(status_code=400, detail="Token is missing")
+    return {"token": token}
 
-@router.get("/image/{id}", summary="Get image of a user")
-async def get_user_image_f(id: int, db: Session = Depends(get_db)):
+@router.get("/image", summary="Get image of a user", )
+async def get_user_image_f(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    id = lib.verify_token(token)
+    id = id.get("id")
+    if id is None:
+        raise HTTPException(status_code=400, detail="Invalid token")
     return get_profile_image(db, id=id)
 
 @router.post("/upload-image/")
-async def upload_image(file: UploadFile = File(...), id: int = 0, db: Session = Depends(get_db)):
-    try:
-        save_dir = Path("app/static/images/profile")
-        save_dir.mkdir(parents=True, exist_ok=True)
-
-        original_extension = os.path.splitext(file.filename)[1]
-        if original_extension.lower() not in [".jpg", ".jpeg", ".png", ".gif"]:
-            raise HTTPException(status_code=400, detail="Formato file non supportato")
-
-        file_path = save_dir / f"{id}{original_extension.lower()}"
-
-        for ext in [".jpg", ".jpeg", ".png", ".gif"]:
-            old_file = save_dir / f"{id}{ext}"
-            if old_file.exists():
-                old_file.unlink()
-
-        with open(file_path, "wb") as buffer:
-            shutil.copyfileobj(file.file, buffer)
-
-        return {"filename": file_path.name}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+async def upload_image(file: UploadFile = File(...), db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    id = lib.verify_token(token)
+    id = id.get("id")
+    if id is None:
+        raise HTTPException(status_code=400, detail="Invalid token")
+    return put_profile_image(db, file=file, id=id)
