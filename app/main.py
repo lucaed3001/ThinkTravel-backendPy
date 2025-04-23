@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from app.routers.auth import auth_router
 from app.routers.locations import locations_router
 from app.database import Base, engine, SessionLocal, get_db
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(
     title="ThinkTravel API",
@@ -24,6 +25,8 @@ app = FastAPI(
 # Include tutte le route di autenticazione
 app.include_router(auth_router, prefix="/auth")
 app.include_router(locations_router, prefix="/locations")
+
+app.mount("/images/cities", StaticFiles(directory="app/static/images/cities"), name="cities")
 
 @app.get("/")
 def root():

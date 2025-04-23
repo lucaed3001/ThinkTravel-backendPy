@@ -1,10 +1,11 @@
 from pydantic import BaseModel
 from typing import Optional
+from app.schemas.country import CountryOnlyNameSchema
 
 class CitySchema(BaseModel):
     id: int
     name: str
-    country: int
+    country: CountryOnlyNameSchema
     description: Optional[str] = None
 
     class Config:
