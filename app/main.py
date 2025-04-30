@@ -3,6 +3,7 @@ from app.routers.auth import auth_router
 from app.routers.locations import locations_router
 from app.database import Base, engine, SessionLocal, get_db
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="ThinkTravel API",
@@ -22,11 +23,20 @@ app = FastAPI(
     redoc_url="/redoc",  # Cambia l'URL di ReDoc
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Include tutte le route di autenticazione
 app.include_router(auth_router, prefix="/auth")
 app.include_router(locations_router, prefix="/locations")
 
 app.mount("/images/cities", StaticFiles(directory="app/static/images/cities"), name="cities")
+app.mount("/images/countries", StaticFiles(directory="app/static/images/countries"), name="countries")
 
 @app.get("/")
 def root():

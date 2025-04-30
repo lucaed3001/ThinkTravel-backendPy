@@ -68,9 +68,9 @@ def get_city_images(id, n_max):
         for filename in os.listdir(cartella):
             if re.match(rf"^{re.escape(id_str)}-\d+\..+$", filename):
                 if re.match(rf"^{re.escape(id_str)}-1\..+$", filename):
-                    immagini.insert(0, os.path.join(cartella, filename))  # Prima posizione
+                    immagini.insert(0, os.path.join(filename))  # Prima posizione
                 else:
-                    immagini_altre.append(os.path.join(cartella, filename))
+                    immagini_altre.append(os.path.join(filename))
 
         immagini += immagini_altre
 

@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Depends
-from app.controllers.locations import get_all_countries, get_country_by_id, get_all_countries_names
+from app.controllers.locations import get_all_countries, get_country_by_id, get_all_countries_names, get_country_images
 from app.database import get_db
 from sqlalchemy.orm import Session
 from app.schemas.country import CountrySchema, CountryOnlyNameSchema
@@ -33,3 +33,7 @@ async def get_country_by_id_route(id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+@router.get("/images/{id}")
+async def get_country_image_f(id: int, db: Session = Depends(get_db)):
+    return get_country_images(id=id, n_max=10)

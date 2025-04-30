@@ -1,5 +1,7 @@
 from app.models import Country
 from sqlalchemy.orm import Session
+import os
+import re
 
 # Funzione sincrona
 def get_all_countries(db: Session):
@@ -62,3 +64,30 @@ def get_country_by_id(db: Session, id: int):
     except Exception as e:
         raise Exception(f"Error fetching country by ID: {str(e)}")
 
+def get_country_images(id, n_max):
+    cartella = "app/static/images/countries"
+    immagini = []
+    immagini_altre = []
+    id_str = str(id)
+
+    try:
+        if not os.path.exists(cartella):
+            raise FileNotFoundError(f"La cartella '{cartella}' non esiste.")
+
+        for filename in os.listdir(cartella):
+            if re.match(rf"^{re.escape(id_str)}-\d+\..+$", filename):
+                if re.match(rf"^{re.escape(id_str)}-1\..+$", filename):
+                    immagini.insert(0, os.path.join(filename))  # Prima posizione
+                else:
+                    immagini_altre.append(os.path.join(filename))
+
+        immagini += immagini_altre
+
+        if not immagini:
+            raise FileNotFoundError(f"Nessuna immagine trovata per la città con ID '{id}'.")
+
+        return immagini[:n_max]
+
+    except Exception as e:
+        print(f"Errore durante la ricerca delle immagini: {e}")
+        return []

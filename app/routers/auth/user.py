@@ -56,3 +56,14 @@ async def upload_image(file: UploadFile = File(...), db: Session = Depends(get_d
     if id is None:
         raise HTTPException(status_code=400, detail="Invalid token")
     return put_profile_image(db, file=file, id=id)
+
+@router.get("/me", summary="Get user data")
+async def get_user_data(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    id = lib.verify_token(token)
+    id = id.get("id")
+    if id is None:
+        raise HTTPException(status_code=400, detail="Invalid token")
+    user = db.query(User).filter(User.id == id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return UserSchema.model_validate(user, from_attributes=True)
