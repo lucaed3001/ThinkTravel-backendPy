@@ -15,3 +15,5 @@ class Organizator(Base):
     vat = Column(String(20), nullable=True)
 
     city_rel = relationship("City", back_populates="organizers")
+
+    hotels = relationship("Hotel", back_populates="organizer_rel")

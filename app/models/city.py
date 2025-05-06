@@ -18,6 +18,8 @@ class City(Base):
     
     images = relationship('CityImage', back_populates='city', cascade='all, delete-orphan')
 
+    hotels = relationship("Hotel", back_populates="city_rel")
+
 class CityImage(Base):
     __tablename__ = 'city_images'
     id = Column(Integer, primary_key=True)

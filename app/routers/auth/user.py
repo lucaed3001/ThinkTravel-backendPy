@@ -7,7 +7,7 @@ import shutil
 from passlib.context import CryptContext
 from app.controllers.auth import login_user, register_user, get_users, get_images_user, get_images_user_file, get_profile_image, put_profile_image
 import app.controllers.lib as lib
-from app.schemas.user import UserCreate, UserSchema, UserLogin, UserImageSchema  # Import userCreate schema
+from app.schemas.user import UserCreate, UserSchema, UserLogin  # Import userCreate schema
 from fastapi.responses import FileResponse
 import os
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm

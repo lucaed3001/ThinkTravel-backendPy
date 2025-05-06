@@ -5,3 +5,4 @@ from .currency import Currency
 from .country import Country
 from .city import City, CityImage
 from .secondary_languages import SecondaryLanguage
+from .hotel import Hotel

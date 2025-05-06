@@ -2,6 +2,7 @@ from app.models import City, Country
 from sqlalchemy.orm import Session
 import os
 import re
+from sqlalchemy.sql import func
 
 def get_all_cities(db: Session):
     try:
@@ -82,3 +83,21 @@ def get_city_images(id, n_max):
     except Exception as e:
         print(f"Errore durante la ricerca delle immagini: {e}")
         return []
+    
+def get_suggested_cities(db: Session, n=10):
+    try:
+        cities = db.query(City).order_by(func.random()).limit(n).all()
+        suggested_cities = []
+        for city in cities:
+            suggested_cities.append({
+                'id': city.id,
+                'name': city.name,
+                'description': city.description,
+                'country': {
+                    'id': city.country_rel.ID,
+                    'name': city.country_rel.name,
+                },
+            })
+        return suggested_cities
+    except Exception as e:
+        raise Exception(f"Error fetching suggested cities: {str(e)}")
