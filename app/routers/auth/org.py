@@ -15,7 +15,8 @@ async def get_users_endpoint(db: Session = Depends(get_db)):
     return get_orgs(db)
 
 
-async def login_org_form(form_data: OAuth2PasswordRequestForm = Depends(),db: Session = Depends(get_db)):
+@router.post("/login", summary="Login org", response_model=OrgSchema)
+async def login_org_form(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     org_login = OrgLogin(email=form_data.username, password=form_data.password)
     return login_org(db, org_data=org_login)
 
