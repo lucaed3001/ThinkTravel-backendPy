@@ -7,3 +7,4 @@ passlib[bcrypt]
 PyJWT
 pydantic[email]
 python-multipart
+translate

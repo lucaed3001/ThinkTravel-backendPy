@@ -16,3 +16,16 @@ class Hotel(Base):
 
     city_rel = relationship("City", back_populates="hotels")
     organizer_rel = relationship("Organizator", back_populates="hotels")
+    translations = relationship('HotelTranslation', back_populates='hotel', lazy='dynamic')
+
+class HotelTranslation(Base):
+    __tablename__ = 'hotel_translations'
+
+    id = Column(Integer, primary_key=True, index=True)  # ID unico per ogni traduzione
+    hotel_id = Column(Integer, ForeignKey('hotels.id'), nullable=False)  # ID dell'hotel (chiave esterna)
+    lang = Column(String, nullable=False)  # Codice lingua (ad es. 'it', 'en', 'de', ecc.)
+    description = Column(String, nullable=True)  # Descrizione tradotta dell'hotel
+
+    # Relazione con la tabella Hotel
+    hotel = relationship('Hotel', back_populates='translations')
+

@@ -49,3 +49,15 @@ def get_orgs(db: Session) -> List[OrgSchema]:
         return [OrgSchema.model_validate(org, from_attributes=True) for org in orgs]
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error fetching orgs: {str(e)}")
+    
+def get_org_by_id(db: Session, id: int) -> OrgSchema:
+    try:
+        organizator = db.query(org).filter(org.id == id).first()
+        
+        if not organizator:
+            raise HTTPException(status_code=404, detail="Org not found")
+        
+        return OrgSchema.model_validate(organizator, from_attributes=True)
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error fetching org by ID: {str(e)}")

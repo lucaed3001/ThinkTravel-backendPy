@@ -5,16 +5,17 @@ from app.schemas.org import OrgSchema  # crea uno schema anche per questo
 
 class HotelSchema(BaseModel):
     id: int
-    name: Optional[str]
-    address: Optional[str]
-    city: Optional[CitySchema]
+    name: str
+    address: str
+    city: int
     description: Optional[str]
     graduation: Optional[int]
-    organizer: Optional[OrgSchema]  # o OrgOnlyNameSchema, se preferisci solo il nome
-    star_number: Optional[int]
+    organizer: int 
+    star_number: int
 
     class Config:
         from_attributes = True
+    
 
 class HotelCreate(BaseModel):
     name: Optional[str]
@@ -24,3 +25,16 @@ class HotelCreate(BaseModel):
     graduation: Optional[int]
     organizer: Optional[int]
     star_number: Optional[int]
+
+class HotelFullSchema(BaseModel):
+    id: int
+    name: str
+    address: str
+    city: Optional[CitySchema]
+    description: Optional[str]
+    graduation: Optional[int]
+    organizer: Optional[OrgSchema]
+    star_number: int
+
+    class Config:
+        from_attributes = True

