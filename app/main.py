@@ -78,6 +78,5 @@ def root():
 
 @app.on_event("startup")
 def startup_event():
-    start_translation_worker()  # Avvia il worker di traduzione in un thread separato
-    print("Translation worker avviato")
+    start_translation_worker()
 

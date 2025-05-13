@@ -16,7 +16,7 @@ class Hotel(Base):
 
     city_rel = relationship("City", back_populates="hotels")
     organizer_rel = relationship("Organizator", back_populates="hotels")
-    translations = relationship('HotelTranslation', back_populates='hotel', lazy='dynamic')
+    translations = relationship('HotelTranslation', back_populates='hotel', lazy='select')
 
 class HotelTranslation(Base):
     __tablename__ = 'hotel_translations'

@@ -20,6 +20,9 @@ class City(Base):
 
     hotels = relationship("Hotel", back_populates="city_rel")
 
+    translations = relationship('CityTranslation', back_populates='city', lazy='select')
+
+
 class CityImage(Base):
     __tablename__ = 'city_images'
     id = Column(Integer, primary_key=True)
@@ -27,4 +30,16 @@ class CityImage(Base):
     url = Column(String, nullable=False)
     
     city = relationship('City', back_populates='images')
+
+
+class CityTranslation(Base):
+    __tablename__ = "city_translations"
+
+    id = Column(Integer, primary_key=True, index=True)
+    city_id = Column(Integer, ForeignKey("cities.id"))
+    lang = Column(String, nullable=False)
+    name = Column(String)  # <-- Assicurati che questa riga esista
+    description = Column(Text)  # <-- E anche questa se usi `description`
+
+    city = relationship('City', back_populates='translations')
 

@@ -21,6 +21,8 @@ class Country(Base):
     cities = relationship("City", back_populates="country_rel")
     images = relationship('CountryImage', back_populates='country', cascade='all, delete-orphan')
     #secondary_languages = relationship("SecondaryLanguage", back_populates="country")
+    translations = relationship('CountryTranslation', back_populates='country', lazy='select')
+
 
 class CountryImage(Base):
     __tablename__ = 'country_images'
@@ -29,3 +31,15 @@ class CountryImage(Base):
     url = Column(String, nullable=False)
     
     country = relationship('Country', back_populates='images')
+
+
+class CountryTranslation(Base):
+    __tablename__ = 'country_translations'
+
+    id = Column(Integer, primary_key=True, index=True)
+    country_id = Column(Integer, ForeignKey('countries.ID'), nullable=False)
+    lang = Column(String, nullable=False)
+    description = Column(String, nullable=True)
+    name = Column(String)  # <-- Assicurati che questa riga esista
+
+    country = relationship('Country', back_populates='translations')
