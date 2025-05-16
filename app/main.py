@@ -70,6 +70,7 @@ app.include_router(locations_router, prefix="/locations")
 
 app.mount("/images/cities", StaticFiles(directory="app/static/images/cities"), name="cities")
 app.mount("/images/countries", StaticFiles(directory="app/static/images/countries"), name="countries")
+app.mount("/images/hotels", StaticFiles(directory="app/static/images/hotels"), name="hotels")
 app.mount("/curriculum", StaticFiles(directory="app/static/curriculum"), name="curriculum")
 
 @app.get("/")

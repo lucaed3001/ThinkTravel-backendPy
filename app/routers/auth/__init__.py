@@ -1,6 +1,8 @@
 from fastapi import APIRouter
 from .org import router as org_router
 from .user import router as user_router
+from .org import oauth2_org_scheme
+from .user import oauth2_user_scheme
 
 auth_router = APIRouter()
 

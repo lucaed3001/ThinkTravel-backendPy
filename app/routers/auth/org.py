@@ -7,6 +7,7 @@ from app.controllers.auth.org import login_org, register_org, get_orgs
 from app.schemas.org import OrgCreate, OrgLogin, OrgSchema  # Import userCreate schema
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
+oauth2_org_scheme = OAuth2PasswordBearer(tokenUrl="auth/org/login")
 router = APIRouter()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -15,7 +16,7 @@ async def get_users_endpoint(db: Session = Depends(get_db)):
     return get_orgs(db)
 
 
-@router.post("/login", summary="Login org", response_model=OrgSchema)
+@router.post("/login", summary="Login org")
 async def login_org_form(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     org_login = OrgLogin(email=form_data.username, password=form_data.password)
     return login_org(db, org_data=org_login)

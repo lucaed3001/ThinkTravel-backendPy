@@ -22,7 +22,6 @@ class HotelCreate(BaseModel):
     address: Optional[str]
     city: Optional[int]
     description: Optional[str]
-    graduation: Optional[int]
     organizer: Optional[int]
     star_number: Optional[int]
 

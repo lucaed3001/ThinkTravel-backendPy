@@ -138,6 +138,46 @@ def get_suggested_cities(db: Session, n=10, lang="en"):
         raise Exception(f"Error fetching suggested cities: {str(e)}")
     
 
+def get_suggested_cities_by_country(db: Session, country_id: int, n=10, lang="en"):
+    try:
+        # Query per ottenere n città casuali appartenenti al country_id specificato
+        cities = db.query(City).options(
+            joinedload(City.translations),
+            joinedload(City.country_rel).joinedload(Country.translations)
+        ).filter(
+            City.country == country_id  # ⬅️ FILTRO AGGIUNTO PER IL PAESE
+        ).order_by(
+            func.random()
+        ).limit(n).all()
+
+        suggested_cities = []
+
+        for city in cities:
+            # Cerca la traduzione della città nella lingua richiesta
+            city_translation = next((t for t in city.translations if t.lang == lang), None)
+            
+            # Recupera il paese (già caricato con joinedload)
+            country = city.country_rel
+            country_translation = next((t for t in country.translations if t.lang == lang), None)
+
+            suggested_cities.append({
+                'id': city.id,
+                'name': city_translation.name if city_translation and city_translation.name else city.name,
+                'description': city_translation.description if city_translation and city_translation.description else city.description,
+                'country': {
+                    'id': country.ID,
+                    'name': country_translation.name if country_translation and country_translation.name else country.name,
+                    'description': country_translation.description if country_translation and country_translation.description else country.description,
+                },
+            })
+
+        return suggested_cities
+
+    except Exception as e:
+        raise Exception(f"Error fetching suggested cities: {str(e)}")
+    
+
+
 
 def get_cities_by_partial_name(db: Session, partial_name: str, lang: str = "en"):
     try:
