@@ -32,7 +32,8 @@ def login_org(db: Session, org_data: OrgSchema):
             data={
                 "sub": user.email,
                 "id": user.id,
-                "name": user.name
+                "name": user.name,
+                "role": "org"
             })
         return {"access_token": token,"token_type": "bearer"}
     

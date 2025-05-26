@@ -1,3 +1,4 @@
+import shutil
 from app.models import Hotel, Organizator, City, HotelTranslation, Country, Currency
 from sqlalchemy.orm import Session, joinedload
 from app.schemas import HotelSchema, HotelFullSchema, CitySchema, OrgSchema, CountrySchema, CurrencySchema, HotelCreate
@@ -7,7 +8,8 @@ from sqlalchemy.sql import func, or_
 from googletrans import Translator
 import os
 import re
-from fastapi import HTTPException, status
+from fastapi import File, HTTPException, UploadFile, status
+from pathlib import Path
 
 translator = Translator()
 
@@ -283,3 +285,90 @@ def delete_hotel(db: Session, hotel_id: int, current_org: int):
             detail=f"Error deleting hotel: {str(e)}"
         )
 
+def put_hotel_images(db: Session, files: list[UploadFile] = File(...), token: str = None, id: int = 0):
+    try:
+        save_dir = Path("app/static/images/hotels")
+        save_dir.mkdir(parents=True, exist_ok=True)
+
+        saved_files = []
+        saved_files.extend(get_hotel_images(id, 10))
+
+        for file in files:
+            original_extension = os.path.splitext(file.filename)[1]
+            if original_extension.lower() not in [".jpg", ".jpeg", ".png", ".gif"]:
+                raise HTTPException(status_code=400, detail=f"Formato file non supportato: {file.filename}")
+
+            # Generate a unique filename for each image
+            file_index = len(saved_files) + 1
+            file_path = save_dir / f"{id}-{file_index}{original_extension.lower()}"
+
+            # Save the file
+            with open(file_path, "wb") as buffer:
+                shutil.copyfileobj(file.file, buffer)
+
+            saved_files.append(file_path.name)
+
+        return {"filenames": saved_files}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+
+def get_suggested_hotels_by_country(db: Session, country_id: int, n=10, lang="en"):
+    try:
+        print(f"Fetching {n} suggested hotels in country_id={country_id} with language: {lang}")
+
+        hotels = db.query(Hotel).options(
+            joinedload(Hotel.translations),
+            joinedload(Hotel.city_rel).joinedload(City.translations),
+            joinedload(Hotel.city_rel).joinedload(City.country_rel).joinedload(Country.translations),
+            joinedload(Hotel.organizer_rel)
+        ).filter(
+            Hotel.city_rel.has(City.country == country_id)
+        ).order_by(
+            func.random()
+        ).limit(n).all()
+
+        if not hotels:
+            raise ValueError(f"No hotels found for country_id: {country_id}")
+
+        suggested_hotels = []
+
+        for hotel in hotels:
+            hotel_translation = next((t for t in hotel.translations if t.lang == lang), None)
+            if lang != "en" and not hotel_translation:
+                hotel_translation = next((t for t in hotel.translations if t.lang == "en"), None)
+
+            city = hotel.city_rel
+            city_translation = next((t for t in city.translations if t.lang == lang), None)
+            country = city.country_rel
+            country_translation = next((t for t in country.translations if t.lang == lang), None)
+
+            city_obj = {
+                "id": city.id,
+                "name": city_translation.name if city_translation and city_translation.name else city.name
+            }
+
+            country_obj = {
+                "id": country.ID,
+                "name": country_translation.name if country_translation and country_translation.name else country.name
+            }
+
+            organizer_obj = get_org_by_id(db, hotel.organizer)
+
+            hotel_data = {
+                "id": hotel.id,
+                "name": hotel.name,
+                "description": hotel_translation.description if hotel_translation and hotel_translation.description else hotel.description,
+                "address": hotel.address,
+                "city": {**city_obj, "country": country_obj},
+                "star_number": hotel.star_number,
+                "graduation": hotel.graduation,
+                "organizer": organizer_obj,
+            }
+
+            suggested_hotels.append(HotelFullSchema.model_validate(hotel_data))
+
+        return suggested_hotels
+
+    except Exception as e:
+        raise Exception(f"Error fetching suggested hotels by country: {str(e)}")

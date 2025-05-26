@@ -44,12 +44,31 @@ async def get_hotel_images_route(id: int, n_max: Optional[int] = 10):
 
     
 @router.get("/suggested/{n}", response_model=list[HotelFullSchema])
-async def get_suggested_cities_route(n: int, db: Session = Depends(get_db), lang: Optional[str] = "en"):
+async def get_suggested_cities_route(n: int, db: Session = Depends(get_db), lang: Optional[str] = "en", country_id: Optional[int] = None):
     try:
-        hotels = get_suggested_hotels(db, lang=lang.upper())  
+        if not country_id:
+            hotels = get_suggested_hotels(db, n, lang.upper())  # Chiama la funzione del controller con db come parametro
+        else:
+            print(country_id)
+            hotels = get_suggested_hotels_by_country(db=db, country_id=country_id, n=n, lang=lang.upper()) # Chiama la funzione del controller con db come parametro
+        
         return hotels[:n]  
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+
+@router.get("/suggested/{n}", response_model=list[CitySchema])
+async def get_suggested_cities_route(n: int, db: Session = Depends(get_db), lang: Optional[str] = "en", country_id: Optional[int] = None):
+    try:
+        if not country_id:
+            cities = get_suggested_cities(db, n, lang.upper())  # Chiama la funzione del controller con db come parametro
+        else:
+            print(country_id)
+            cities = get_suggested_cities_by_country(db=db, country_id=country_id, n=n, lang=lang.upper()) # Chiama la funzione del controller con db come parametro
+        return cities[:n]  # Restituisce solo i primi n risultati
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
         
 
 @router.post("/", response_model=HotelSchema)
@@ -81,12 +100,19 @@ async def delete_hotel_route(
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error deleting hotel: {str(e)}")
 
-
-@router.get("/test/")
-async def test(token: str = Depends(oauth2_org_scheme)):
+@router.post("/upload-images/{id}")
+async def upload_images(
+    id: int,
+    files: list[UploadFile] = File(...),
+    db: Session = Depends(get_db)
+):
     try:
-        decoded_data = verify_token(token)
-        return {"decoded_data": decoded_data}
-    except HTTPException as e:
-        print(f"Error: {e.detail}")
+        if id is None:
+            raise HTTPException(status_code=400, detail="Hotel ID is required")
 
+        saved_files = put_hotel_images(db, files=files, id=id)
+        return {"uploaded_files": saved_files["filenames"]}
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error uploading images: {str(e)}")

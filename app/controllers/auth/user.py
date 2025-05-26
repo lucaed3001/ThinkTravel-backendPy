@@ -47,8 +47,18 @@ def register_user(user_data: UserCreate, db: Session):
     db.commit()
     db.refresh(new_user)
     new_user.password = None
+    userSc = UserSchema.model_validate(new_user, from_attributes=True)
+    token = create_access_token(
+            data={
+                "sub": new_user.email,
+                "id": new_user.id,
+                "name": new_user.name
+            })
     
-    return UserSchema.model_validate(new_user)
+    print("token: ", token)
+    userSc.token = token
+    
+    return userSc
 
 
 def get_users(db: Session) -> List[UserSchema]:
