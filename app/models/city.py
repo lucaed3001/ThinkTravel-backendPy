@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Integer, String, Text, ForeignKey
 from sqlalchemy.orm import relationship
 from app.database import Base
-from app.models import Country  # Assumendo che il modello `Country` sia definito correttamente
-from app.models import Organizator  # Aggiungi questa importazione per Organizator
+from app.models import Country 
+from app.models import Organizator 
 
 class City(Base):
     __tablename__ = 'cities'
@@ -13,13 +13,9 @@ class City(Base):
     description = Column(Text)
 
     country_rel = relationship("Country", back_populates="cities")
-
     organizers = relationship('Organizator', back_populates='city_rel')
-    
     images = relationship('CityImage', back_populates='city', cascade='all, delete-orphan')
-
     hotels = relationship("Hotel", back_populates="city_rel")
-
     translations = relationship('CityTranslation', back_populates='city', lazy='select')
 
 
@@ -38,8 +34,8 @@ class CityTranslation(Base):
     id = Column(Integer, primary_key=True, index=True)
     city_id = Column(Integer, ForeignKey("cities.id"))
     lang = Column(String, nullable=False)
-    name = Column(String)  # <-- Assicurati che questa riga esista
-    description = Column(Text)  # <-- E anche questa se usi `description`
+    name = Column(String) 
+    description = Column(Text)  
 
     city = relationship('City', back_populates='translations')
 

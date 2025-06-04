@@ -5,20 +5,6 @@ from app.schemas.org import OrgCreate, OrgSchema, OrgLogin
 from fastapi import HTTPException
 from typing import List
 
-"""def login_org(db: Session, org_data: OrgSchema):
-    try:
-        org_r = db.query(org).filter(org.email == org_data.email).first()
-        if not org_r:
-            raise HTTPException(status_code=404, detail="org not found")
-        elif not verify_password(org_data.password, org_r.password):
-            raise HTTPException(status_code=401, detail="Invalid password")
-        org_r.password = None  # Non restituire la password
-        org_r.token = create_access_token(data={"sub": org_r.email, "org_id": org_r.id})
-
-        return OrgSchema.model_validate(org_r)
-    except Exception as e:
-        raise Exception(f"Error fetching orgs: {str(e)}")
-        """
 
 def login_org(db: Session, org_data: OrgSchema):
     try:

@@ -6,3 +6,4 @@ from .country import *
 from .city import *
 from .secondary_languages import SecondaryLanguage
 from .hotel import *
+from .rooms import *

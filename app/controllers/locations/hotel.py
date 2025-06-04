@@ -41,13 +41,10 @@ def get_all_hotels(db: Session, lang: str = "en"):
         raise Exception(f"Error fetching hotels: {str(e)}")
 
 
-    except Exception as e:
-        raise Exception(f"Error fetching all hotels: {str(e)}")
     
 
 def get_hotel_by_id(db: Session, id: int, lang: str = "en"):
     try:
-        print(f"Fetching hotel with ID: {id} and language: {lang}")
         # Esegui la query per ottenere l'hotel con le relative traduzioni
         hotel = (
             db.query(Hotel)
@@ -58,7 +55,6 @@ def get_hotel_by_id(db: Session, id: int, lang: str = "en"):
             .first()
         )
 
-        print(f"Hotel found: {hotel}")
         if not hotel:
             raise ValueError("Hotel not found")
 
@@ -91,7 +87,6 @@ def get_hotel_by_id(db: Session, id: int, lang: str = "en"):
 
 def get_suggested_hotels(db: Session, n: int = 10, lang: str = "en"):
     try:
-        print(f"Fetching {n} suggested hotels with language: {lang}")
 
         # Costruiamo la query con eager loading delle relazioni
         query = db.query(Hotel).options(
@@ -149,7 +144,6 @@ def get_suggested_hotels(db: Session, n: int = 10, lang: str = "en"):
 
 def get_hotels_by_city_name(db: Session, city_name: str, lang: str = "en"):
     try:
-        # Cerca la città con il nome esatto (ignorando maiuscole/minuscole)
         city = db.query(City).filter(func.lower(City.name) == city_name.strip().lower()).first()
 
         return get_hotels_by_city_id(db, int(city.id), lang) if city else []
@@ -159,7 +153,6 @@ def get_hotels_by_city_name(db: Session, city_name: str, lang: str = "en"):
 
 def get_hotels_by_city_id(db: Session, city_id: int, lang: str = "en"):
     try:
-        print(f"Fetching hotels for city ID: {city_id} with language: {lang}")
 
         hotels = (
             db.query(Hotel)
@@ -214,20 +207,20 @@ def get_hotel_images(id, n_max):
         for filename in os.listdir(cartella):
             if re.match(rf"^{re.escape(id_str)}-\d+\..+$", filename):
                 if re.match(rf"^{re.escape(id_str)}-1\..+$", filename):
-                    immagini.insert(0, os.path.join(filename))  # Prima posizione
+                    immagini.insert(0, os.path.join(filename))
                 else:
                     immagini_altre.append(os.path.join(filename))
 
         immagini += immagini_altre
 
         if not immagini:
-            raise FileNotFoundError(f"Nessuna immagine trovata per la città con ID '{id}'.")
+            raise FileNotFoundError(f"Nessuna immagine trovata per l'hotel con ID '{id}'.")
 
         return immagini[:n_max]
 
     except Exception as e:
-        print(f"Errore durante la ricerca delle immagini: {e}")
-        return []
+        raise Exception(f"Errore durante il recupero delle immagini dell'hotel: {str(e)}")
+
 
 
 def add_hotel(db: Session, hotel_data: HotelCreate):
@@ -262,8 +255,6 @@ def delete_hotel(db: Session, hotel_id: int, current_org: int):
             raise HTTPException(status_code=404, detail="Hotel not found")
 
         # Controlla se l'utente è l'organizzatore dell'hotel
-        print(f"Current user: {current_org}")
-        print(f"Hotel organizer: {hotel.organizer}")
         if hotel.organizer != current_org:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
@@ -298,11 +289,9 @@ def put_hotel_images(db: Session, files: list[UploadFile] = File(...), token: st
             if original_extension.lower() not in [".jpg", ".jpeg", ".png", ".gif"]:
                 raise HTTPException(status_code=400, detail=f"Formato file non supportato: {file.filename}")
 
-            # Generate a unique filename for each image
             file_index = len(saved_files) + 1
             file_path = save_dir / f"{id}-{file_index}{original_extension.lower()}"
 
-            # Save the file
             with open(file_path, "wb") as buffer:
                 shutil.copyfileobj(file.file, buffer)
 
@@ -315,7 +304,6 @@ def put_hotel_images(db: Session, files: list[UploadFile] = File(...), token: st
 
 def get_suggested_hotels_by_country(db: Session, country_id: int, n=10, lang="en"):
     try:
-        print(f"Fetching {n} suggested hotels in country_id={country_id} with language: {lang}")
 
         hotels = db.query(Hotel).options(
             joinedload(Hotel.translations),
@@ -330,9 +318,7 @@ def get_suggested_hotels_by_country(db: Session, country_id: int, n=10, lang="en
 
         if not hotels:
             raise ValueError(f"No hotels found for country_id: {country_id}")
-
         suggested_hotels = []
-
         for hotel in hotels:
             hotel_translation = next((t for t in hotel.translations if t.lang == lang), None)
             if lang != "en" and not hotel_translation:
@@ -372,3 +358,25 @@ def get_suggested_hotels_by_country(db: Session, country_id: int, n=10, lang="en
 
     except Exception as e:
         raise Exception(f"Error fetching suggested hotels by country: {str(e)}")
+    
+def delete_hotel_image(db: Session, image_name: str):
+    try:
+        # Define the directory where hotel images are stored
+        image_dir = Path("app/static/images/hotels")
+        image_path = image_dir / image_name
+
+        # Check if the image exists
+        if not image_path.exists():
+            raise HTTPException(status_code=404, detail="Image not found")
+
+        os.remove(image_path)
+
+        return {"message": "Image deleted successfully"}
+
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error deleting image: {str(e)}"
+        )

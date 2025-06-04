@@ -30,7 +30,6 @@ def get_image_file(source) -> FileResponse:
         if source:
             base_dir = os.getcwd()
             image_path = Path(source) 
-            print(base_dir)
             if not image_path.exists():
                 raise HTTPException(status_code=404, detail="Image not found")
             return FileResponse(source, media_type="image/jpeg")

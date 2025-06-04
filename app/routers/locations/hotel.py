@@ -49,7 +49,6 @@ async def get_suggested_cities_route(n: int, db: Session = Depends(get_db), lang
         if not country_id:
             hotels = get_suggested_hotels(db, n, lang.upper())  # Chiama la funzione del controller con db come parametro
         else:
-            print(country_id)
             hotels = get_suggested_hotels_by_country(db=db, country_id=country_id, n=n, lang=lang.upper()) # Chiama la funzione del controller con db come parametro
         
         return hotels[:n]  
@@ -63,7 +62,6 @@ async def get_suggested_cities_route(n: int, db: Session = Depends(get_db), lang
         if not country_id:
             cities = get_suggested_cities(db, n, lang.upper())  # Chiama la funzione del controller con db come parametro
         else:
-            print(country_id)
             cities = get_suggested_cities_by_country(db=db, country_id=country_id, n=n, lang=lang.upper()) # Chiama la funzione del controller con db come parametro
         return cities[:n]  # Restituisce solo i primi n risultati
     except Exception as e:
@@ -88,7 +86,6 @@ async def delete_hotel_route(
 ):
     try:
         payload = verify_token(token)
-        #print(f"Payload: {payload}")
         org_id = payload.get("id")
         if not id:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
@@ -116,3 +113,19 @@ async def upload_images(
         raise e
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error uploading images: {str(e)}")
+    
+@router.get("/delete-image/{image_name}")
+async def delete_image(
+    image_name: str,
+    db: Session = Depends(get_db)
+):
+    try:
+        if image_name is None:
+            raise HTTPException(status_code=400, detail="Image ID is required")
+
+        result = delete_hotel_image(db, image_name=image_name)
+        return {"message": result["message"]}
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error deleting image: {str(e)}")

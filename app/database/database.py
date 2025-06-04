@@ -9,6 +9,9 @@ load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
+if DATABASE_URL:
+    DATABASE_URL = DATABASE_URL.encode('utf-8').decode('unicode_escape')
+
 # Crea l'engine di SQLAlchemy per MySQL
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

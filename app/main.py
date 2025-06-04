@@ -8,7 +8,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.workers import translation_worker, start_translation_worker
 import threading
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 #threading.Thread(target=translation_worker, daemon=True).start()
 
 app = FastAPI(

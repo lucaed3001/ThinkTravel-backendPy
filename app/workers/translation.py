@@ -1,20 +1,14 @@
 import threading
 import time
-import logging
 from googletrans import Translator
 from sqlalchemy.orm import Session
 from app.database import SessionLocal
-from app.models import Hotel, HotelTranslation, City, CityTranslation, Country, CountryTranslation, Language
+from app.models import Hotel, HotelTranslation, City, CityTranslation, Country, CountryTranslation, Language, Room, RoomTranslation
 
-# Lingue supportate per la traduzione
 LANGUAGES = []
-
-# Configurazione del logging
-#logging.basicConfig(level=print, format='%(asctime)s - %(message)s', filename='translation_worker.log')
 
 def translate_text(text, target_lang, translator):
     try:
-        # Traduci il testo nella lingua di destinazione
         return translator.translate(text, dest=target_lang).text
     except Exception as e:
         print(f"[TranslationWorker]Errore nella traduzione per la lingua {target_lang}: {e}")
@@ -35,7 +29,6 @@ def translation_worker():
 
         try:
             for lang in LANGUAGES:
-                # === HOTEL TRANSLATIONS ===
                 hotels_to_translate = db.query(Hotel) \
                     .outerjoin(HotelTranslation, (Hotel.id == HotelTranslation.hotel_id) & (HotelTranslation.lang == lang)) \
                     .filter(HotelTranslation.id == None) \
@@ -93,7 +86,7 @@ def translation_worker():
                     db.add(translation)
                     db.commit()
 
-                """# === ROOM TRANSLATIONS ===
+                # === ROOM TRANSLATIONS ===
                 rooms_to_translate = db.query(Room) \
                     .outerjoin(RoomTranslation, (Room.id == RoomTranslation.room_id) & (RoomTranslation.lang == lang)) \
                     .filter(RoomTranslation.id == None) \
@@ -102,14 +95,16 @@ def translation_worker():
                 for room in rooms_to_translate:
                     print(f"[TranslationWorker][Room] Traduzione mancante per stanza {room.id} in lingua '{lang}'")
                     translated_desc = translate_text(room.description, lang, translator)
+                    translated_name = translate_text(room.name, lang, translator)
 
                     translation = RoomTranslation(
                         room_id=room.id,
                         lang=lang,
-                        description=translated_desc
+                        description=translated_desc,
+                        name=translated_name
                     )
                     db.add(translation)
-                    db.commit()"""
+                    db.commit()
 
         except Exception as e:
             print(f"[TranslationWorker]Errore nel worker: {e}")

@@ -14,20 +14,25 @@ def login_user(db: Session, user_data: UserSchema):
         user = db.query(User).filter(User.email == user_data.email).first()
         if not user:
             raise HTTPException(status_code=404, detail="User not found")
-        elif not verify_password(user_data.password, user.password):
+        if not verify_password(user_data.password, user.password):
             raise HTTPException(status_code=401, detail="Invalid password")
-        user.password = None  # Non restituire la password
+
+        user.password = None
         token = create_access_token(
             data={
                 "sub": user.email,
                 "id": user.id,
                 "name": user.name
-            })
-        user.country = user.country
-        return {"access_token": token,"token_type": "bearer"}
-    
+            }
+        )
+        user.country = user.country  
+
+        return {"access_token": token, "token_type": "bearer"}
+
+    except HTTPException as http_exc:
+        raise http_exc
     except Exception as e:
-        raise Exception(f"Error fetching users: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 def register_user(user_data: UserCreate, db: Session):
     existing_user = db.query(User).filter(User.email == user_data.email).first()
@@ -55,7 +60,6 @@ def register_user(user_data: UserCreate, db: Session):
                 "name": new_user.name
             })
     
-    print("token: ", token)
     userSc.token = token
     
     return userSc
